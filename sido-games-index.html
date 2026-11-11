@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090611">
+<title>SIDO — Game Store</title>
+<style>
+:root{--bg:#090611;--panel:#140d20;--purple:#9b4dff;--purple2:#c18aff;--muted:#b7a9c8;--line:#2a1b3b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% -20%,#321052 0%,#090611 48%);color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 max(5%,calc((100% - 1180px)/2));border-bottom:1px solid #ffffff12;background:#090611b8;backdrop-filter:blur(12px);position:sticky;top:0;z-index:5}
+.logo{font-size:30px;font-weight:900;letter-spacing:5px;color:#c18aff;text-shadow:0 0 22px #9b4dff}
+nav{display:flex;align-items:center;gap:20px;color:var(--muted);font-size:14px}
+select{background:#1a1025;color:white;border:1px solid #553477;border-radius:10px;padding:9px 12px}
+main{max-width:1180px;margin:auto;padding:44px 22px 70px}
+.eyebrow{color:#c18aff;text-transform:uppercase;letter-spacing:4px;font-size:12px;font-weight:bold}
+h1{font-size:clamp(36px,6vw,64px);line-height:1.04;margin:12px 0}
+h1 span{color:#b979ff}
+.lead{color:var(--muted);font-size:17px;line-height:1.7;max-width:620px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;margin:22px 0 58px}
+.hero-art{min-height:320px;border-radius:26px;overflow:hidden;position:relative;border:1px solid #7540a3;box-shadow:0 20px 70px #6c27a833;background:linear-gradient(145deg,#32105b,#11101e 55%,#4c2671)}
+.hero-art:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,#e6b5ff66,transparent 22%),linear-gradient(155deg,transparent 40%,#090611aa 100%)}
+.moon{position:absolute;width:90px;height:90px;border-radius:50%;background:#e7c9ff;right:17%;top:13%;box-shadow:0 0 55px #c18aff}
+.mountain{position:absolute;bottom:-2px;width:0;height:0;border-left:190px solid transparent;border-right:190px solid transparent;border-bottom:210px solid #211039}
+.mountain.m2{left:25%;border-left-width:240px;border-right-width:240px;border-bottom:170px solid #382052}
+.mountain.m3{left:-12%;border-bottom-color:#170d27}
+.art-label{position:absolute;left:25px;bottom:24px;z-index:1}
+.art-label strong{font-size:clamp(26px,4vw,42px);letter-spacing:3px;text-shadow:0 3px 20px #000}
+.art-label small{display:block;color:#e5d4f6;margin-top:7px;letter-spacing:2px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;background:linear-gradient(100deg,#7d2de0,#b35cff);color:white;text-decoration:none;border:0;border-radius:13px;padding:15px 23px;font-weight:800;letter-spacing:.5px;box-shadow:0 9px 28px #8c36db55;cursor:pointer;transition:.2s}
+.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.tags{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0}
+.tag{border:1px solid #64418a;color:#dfc6fa;background:#251437;border-radius:30px;padding:7px 12px;font-size:12px}
+.section-title{font-size:26px;margin:0 0 18px}
+.card{background:linear-gradient(145deg,#1a1026,#100b18);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;grid-template-columns:190px 1fr;gap:20px;align-items:center}
+.thumb{height:145px;border-radius:15px;background:linear-gradient(150deg,#3e1765,#161126 65%,#8a4ac0);position:relative;overflow:hidden}
+.thumb:before{content:"";position:absolute;width:65px;height:65px;border-radius:50%;background:#e6c5ff;right:24px;top:15px;box-shadow:0 0 35px #b66aff}
+.thumb:after{content:"";position:absolute;left:-20px;bottom:-50px;width:250px;height:150px;background:#241039;transform:rotate(-15deg);border-radius:50%}
+.card h3{font-size:22px;margin:0 0 8px}
+.card p{color:var(--muted);line-height:1.6;margin:0 0 14px}
+.card-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.note{font-size:12px;color:#8f7fa1;margin-top:25px;line-height:1.6}
+footer{border-top:1px solid #ffffff12;padding:25px 20px;text-align:center;color:#8e7ca2;font-size:13px}
+@media(max-width:760px){header{padding:0 18px}.hero{grid-template-columns:1fr;gap:22px;margin-top:8px}.hero-art{min-height:250px}.card{grid-template-columns:1fr}.thumb{height:190px}nav{gap:9px}main{padding-top:30px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">SIDO</div>
+  <nav><span data-i18n="nav">GAME STORE</span>
+    <select id="language" aria-label="Language">
+      <option value="en">English</option><option value="ar">العربية</option><option value="tr">Türkçe</option><option value="fr">Français</option>
+    </select>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow" data-i18n="eyebrow">YOUR NEXT ADVENTURE STARTS HERE</div>
+      <h1 data-i18n="headline">Discover games.<br><span>Start adventures.</span></h1>
+      <p class="lead" data-i18n="intro">Welcome to SIDO, a home for games made with imagination. Explore our collection and find your next world to play.</p>
+      <a class="btn" href="#games" data-i18n="explore">EXPLORE GAMES ↓</a>
+    </div>
+    <div class="hero-art" role="img" aria-label="SIDO fantasy artwork">
+      <div class="moon"></div><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div>
+      <div class="art-label"><strong>SIDO</strong><small>GAMES • DISCOVER • PLAY</small></div>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="eyebrow" data-i18n="collection">THE COLLECTION</div>
+    <h2 class="section-title" data-i18n="featured">Featured game</h2>
+    <article class="card">
+      <div class="thumb" role="img" aria-label="SIDO Downhill Bike game artwork"></div>
+      <div>
+        <div class="tags"><span class="tag">ANDROID</span><span class="tag">BIKE GAME</span><span class="tag">APK</span></div>
+        <h3 data-i18n="gameTitle">SIDO: Downhill Bike</h3>
+        <p data-i18n="gameDesc">Ride downhill, master the bike physics, and enjoy the adventure. Download the Android version and start playing!</p>
+        <div class="card-actions">
+          <a class="btn" id="downloadButton" href="https://builds.gdevelop-app.com/aedb4ab0-4e8a-4686-813f-31dcbe5fcf00/Glossy%20Seed%20(Downhill%20bike%20physics%20demo)-1_0_1.apk" target="_blank" rel="noopener" data-i18n="download">⬇ DOWNLOAD APK</a>
+          <span style="color:#9f8caf;font-size:12px" data-i18n="coming">Android APK • Version 1.0.1</span>
+        </div>
+      </div>
+    </article>
+    <p class="note" data-i18n="notice">SIDO GAMES. The download link opens the Android APK hosted by GDevelop. Android may ask you to confirm before installing an app downloaded outside Google Play.</p>
+  </section>
+</main>
+<footer>© <span id="year"></span> SIDO GAMES — <span data-i18n="footer">Made for explorers.</span></footer>
+<script>
+const translations={
+en:{nav:"GAME STORE",eyebrow:"YOUR NEXT ADVENTURE STARTS HERE",headline:'Discover games.<br><span>Start adventures.</span>',intro:"Welcome to SIDO, a home for games made with imagination. Explore our collection and find your next world to play.",explore:"EXPLORE GAMES ↓",collection:"THE COLLECTION",featured:"Featured game",gameTitle:"SIDO: Downhill Bike",gameDesc:"Ride downhill, master the bike physics, and enjoy the adventure. Download the Android version and start playing!",download:"⬇ DOWNLOAD APK",coming:"Android APK • Version 1.0.1",notice:"SIDO GAMES. The download link opens the Android APK hosted by GDevelop. Android may ask you to confirm before installing an app downloaded outside Google Play.",footer:"Made for explorers."},
+ar:{nav:"متجر الألعاب",eyebrow:"مغامرتك القادمة تبدأ من هنا",headline:'اكتشف الألعاب.<br><span>ابدأ المغامرات.</span>',intro:"أهلاً بك في SIDO، مكان الألعاب المصنوعة بالخيال. اكتشف مجموعتنا واختر عالمك القادم.",explore:"استكشف الألعاب ↓",collection:"مجموعتنا",featured:"اللعبة المميزة",gameTitle:"SIDO: دراجة المنحدرات",gameDesc:"انطلق بدراجتك على المنحدرات، وتحكّم بقيادتها واستمتع بالمغامرة. حمّل نسخة أندرويد وابدأ اللعب!",download:"⬇ تحميل APK",coming:"نسخة أندرويد • الإصدار 1.0.1",notice:"متجر SIDO GAMES. رابط التحميل يفتح ملف APK المستضاف على GDevelop. قد يطلب أندرويد تأكيدك قبل تثبيت تطبيق تم تنزيله من خارج Google Play.",footer:"صُنع للمستكشفين."},
+tr:{nav:"OYUN MAĞAZASI",eyebrow:"YENİ MACERAN BURADA BAŞLIYOR",headline:'Oyunları keşfet.<br><span>Maceraya başla.</span>',intro:"Hayal gücüyle yapılmış oyunların adresi SIDO'ya hoş geldin. Koleksiyonumuzu keşfet ve yeni dünyanı bul.",explore:"OYUNLARI KEŞFET ↓",collection:"KOLEKSİYON",featured:"Öne çıkan oyun",gameTitle:"SIDO: Yokuş Aşağı Bisiklet",gameDesc:"Yokuş aşağı sür, bisiklet fiziğinde ustalaş ve maceranın tadını çıkar. Android sürümünü indir ve oynamaya başla!",download:"⬇ APK İNDİR",coming:"Android APK • Sürüm 1.0.1",notice:"SIDO GAMES. İndirme bağlantısı GDevelop üzerinde barındırılan Android APK dosyasını açar. Google Play dışından indirilen bir uygulamayı yüklemeden önce Android onay isteyebilir.",footer:"Kaşifler için yapıldı."},
+fr:{nav:"BOUTIQUE DE JEUX",eyebrow:"VOTRE PROCHAINE AVENTURE COMMENCE ICI",headline:'Découvrez des jeux.<br><span>Partez à l’aventure.</span>',intro:"Bienvenue sur SIDO, un espace dédié aux jeux imaginés avec créativité. Explorez notre collection et trouvez votre prochain univers.",explore:"DÉCOUVRIR LES JEUX ↓",collection:"LA COLLECTION",featured:"Jeu à la une",gameTitle:"SIDO : Vélo de descente",gameDesc:"Dévalez les pentes, maîtrisez la physique du vélo et profitez de l'aventure. Téléchargez la version Android et commencez à jouer !",download:"⬇ TÉLÉCHARGER APK",coming:"APK Android • Version 1.0.1",notice:"SIDO GAMES. Le lien ouvre le fichier APK Android hébergé par GDevelop. Android peut demander une confirmation avant l'installation d'une application téléchargée hors de Google Play.",footer:"Créé pour les explorateurs."}
+};
+const language=document.getElementById("language");
+function setLanguage(lang){
+  const t=translations[lang]||translations.en;
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.dataset.i18n;
+    if(t[key]) el.innerHTML=t[key];
+  });
+}
+language.addEventListener("change",e=>setLanguage(e.target.value));
+document.getElementById("year").textContent=new Date().getFullYear();
+setLanguage("en");
+</script>
+</body>
+</html>
