@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIDO AI</title>
+<style>
+:root{--bg:#090810;--panel:#151320;--panel2:#211a30;--purple:#a66cff;--text:#f6f1ff;--muted:#aaa2b8;--line:#30283d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#25153d 0,#090810 55%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;display:flex;justify-content:center}
+.app{width:min(900px,100%);height:100dvh;display:flex;flex-direction:column;padding:18px}
+header{display:flex;align-items:center;justify-content:space-between;padding:10px 4px 18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:21px}.logo{width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,#b879ff,#6331b5);display:grid;place-items:center;box-shadow:0 5px 25px #8e4bdb55}
+.tag{font-size:12px;color:#d4b9ff;background:#291d3a;border:1px solid #493164;padding:6px 10px;border-radius:99px}
+main{flex:1;overflow:auto;padding:24px 4px;display:flex;flex-direction:column;gap:16px;scroll-behavior:smooth}
+.welcome{text-align:center;margin:auto 0}.welcome h1{font-size:clamp(28px,6vw,42px);margin:0 0 8px}.welcome p{color:var(--muted);margin:0}
+.msg{max-width:min(78%,650px);padding:13px 16px;border-radius:18px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
+.user{align-self:flex-start;background:#39234f;border:1px solid #624080;border-bottom-right-radius:5px}
+.bot{align-self:flex-end;background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:5px}
+.label{font-size:11px;color:#c9a6ff;margin-bottom:4px}
+.composer{background:#151320;border:1px solid #393047;border-radius:20px;padding:9px;display:flex;gap:8px;align-items:end;box-shadow:0 12px 40px #0007}
+textarea{resize:none;max-height:130px;min-height:44px;flex:1;background:transparent;border:0;outline:0;color:var(--text);font:inherit;padding:10px}
+button{border:0;cursor:pointer;font:inherit}.send{height:44px;width:48px;border-radius:14px;background:linear-gradient(135deg,#bd8aff,#8a4be0);color:white;font-size:20px;font-weight:800}
+.tools{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;padding:8px 4px}
+.clear{background:transparent;color:#c8a5ff;font-size:12px}
+.notice{text-align:center;color:#8f879b;font-size:11px;padding-bottom:3px}
+@media(max-width:560px){.app{padding:12px}.msg{max-width:90%}header{padding-bottom:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="brand"><div class="logo">✦</div><span>SIDO AI</span></div>
+ <span class="tag">نسخة تجريبية</span>
+</header>
+<main id="chat" aria-live="polite">
+ <div class="welcome" id="welcome"><h1>أهلاً بك في SIDO AI</h1><p>اسألني أي شيء — بالعربي أو التركي أو الإنجليزي.</p></div>
+</main>
+<div class="composer">
+ <textarea id="input" rows="1" placeholder="اكتب رسالتك هنا..." aria-label="اكتب رسالتك"></textarea>
+ <button class="send" id="send" aria-label="إرسال">➤</button>
+</div>
+<div class="tools"><span id="count">0 رسالة</span><button class="clear" id="clear">محادثة جديدة</button></div>
+<div class="notice">نسخة مجانية تجريبية: الردود هنا تجريبية وليست متصلة بخدمة ذكاء اصطناعي.</div>
+</div>
+<script>
+const chat=document.getElementById('chat'), input=document.getElementById('input'), count=document.getElementById('count');
+let messages=0;
+function add(text,who){const el=document.createElement('div');el.className='msg '+who;el.textContent=text;chat.appendChild(el);chat.scrollTo({top:chat.scrollHeight,behavior:'smooth'});messages++;count.textContent=messages+' رسالة';}
+function reply(s){
+ const t=s.toLowerCase();
+ if(/[ğüşöçıİ]/i.test(s)||/merhaba|nasılsın|teşekkür/i.test(t)) return 'Merhaba! Sana nasıl yardımcı olabilirim? 😊';
+ if(/hello|hi|how are you|who are you/i.test(t)) return 'Hello! I’m SIDO AI, a demo assistant. I can chat in Arabic, Turkish, and English.';
+ if(/ذكاء اصطناعي|artificial intelligence|ai\b/i.test(t)) return 'الذكاء الاصطناعي هو تقنية تساعد الكمبيوتر على فهم المعلومات والتعرّف على الأنماط والإجابة عن الأسئلة وتنفيذ مهام مفيدة.';
+ if(/مرحبا|السلام عليكم|كيفك|كيف حالك/i.test(t)) return 'أهلاً فيك! كيف فيني ساعدك اليوم؟ 😊';
+ if(/شكرا|شكراً/i.test(t)) return 'العفو! أنا جاهز أساعدك.';
+ if(/اسمك|مين انت|من أنت/i.test(t)) return 'أنا SIDO AI، مساعد تجريبي بواجهة متعددة اللغات.';
+ return 'وصلتني رسالتك: «'+s+'».\nهذه نسخة تجريبية مجانية ب ردود محدودة. لتقديم إجابات ذكية مفتوحة نحتاج ربط خدمة AI خارجية، وقد تكون لها حدود أو تكاليف.';
+}
+function send(){const s=input.value.trim();if(!s)return;document.getElementById('welcome')?.remove();add(s,'user');input.value='';input.style.height='44px';setTimeout(()=>add(reply(s),'bot'),350);}
+document.getElementById('send').addEventListener('click',send);
+input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
+input.addEventListener('input',()=>{input.style.height='44px';input.style.height=Math.min(input.scrollHeight,130)+'px';});
+document.getElementById('clear').addEventListener('click',()=>{chat.innerHTML='<div class="welcome" id="welcome"><h1>أهلاً بك في SIDO AI</h1><p>اسألني أي شيء — بالعربي أو التركي أو الإنجليزي.</p></div>';messages=0;count.textContent='0 رسالة';});
+</script>
+</body>
+</html>
